@@ -1,0 +1,4 @@
+@Simple Image Manipulations
+reading-writing-images.md:Reading and Writing Images (A Simple Image Class)
+image-processing.md:Simple Image Manipulations
+bookeh-effect.md:Example 1: Simulating the Bokeh Effect in 2D

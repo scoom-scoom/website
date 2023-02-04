@@ -2,11 +2,11 @@
 
 ![Figure 1: Newell's original drawing of the teapot.](/images/bezier/newelldrawing.png?)
 
-In 1975, computer researcher Martin Newell needed a new 3D model. Very few models were available to the computer graphics community, and creating them was also far from easy. Most models had to get their points entered in the computer program by hand or with a graphics tablet ("a computer input device that allows hand-drawn images and graphics to be input. It may be used to trace an image from a piece of paper laid on the surface. Capturing data in this way is called digitizing"). The story goes that Newell drew a teapot he had at home and digitized these drawings to create the model we know today as the Utah Teapot (figure 1). The teapot is now usually available in rendering or modeling programs along with other geometric primitives, such as spheres, cubes, tori, etc. The walking teapot toys given by Pixar at SIGGRAPH since 2003, in tribute to Newell's work and his iconic teapot, have even become a cult phenomenon (figure 2).
+In 1975, computer researcher Martin Newell needed a new 3D model. Very few models were available to the computer graphics community, and creating them took a lot of work. Most models had to get their points entered in the computer program by hand or with a graphics tablet ("a computer input device that allows hand-drawn images and graphics to be input. For example, it may be used to trace an image from a piece of paper laid on the surface. Capturing data in this way is called digitizing"). The story goes that Newell drew a teapot he had at home and digitized these drawings to create the model we know today as the Utah Teapot (figure 1). The teapot is now usually available in rendering or modeling programs along with other geometric primitives, such as spheres, cubes, tori, etc. The walking teapot toys given by Pixar at SIGGRAPH since 2003, in tribute to Newell's work and his iconic teapot, have even become a cult phenomenon (figure 2).
 
 ![Figure 2: Pixar's RenderMan walking teapot. A tribute to Newell's work and iconic teapot.](/images/bezier/pixarteapot.png?)
 
-One of the interesting properties of the teapot created by Newell is that the mathematical model used to define the surface of the object is very compact. The teapot contains 32 patches, each represented by 16 points (the original data set contains 28 patches). You might wonder: "how is it possible to create a complex and smooth shape such as the teapot with such few points?". The main idea of the technique is that these 16 points do not define the vertices of polygons as with the polygon mesh we have studied in the previous section. They represent the control points of something like a grid or lattice that influence the shape of an underlying smooth surface. These points are magnets that push or pull the underlying surface. The surface itself doesn't exist as such. To visualize it, we need to compute it by combining these 16 controls point weighted by some coefficients. Because the creation of the surface is based on equations, it falls under the category of **parametric surfaces**. The model used by Newell for the teapot (as many other types of parametric surface exist) is called a **Bézier surface** (or Bézier curve for curves). Pierre Bézier first described it in 1962. The principle of this technique is easier to understand with curves than surfaces. Its application to 3D surfaces, though, is straightforward.
+One of the interesting properties of the teapot created by Newell is that the mathematical model used to define the surface of the object is very compact. The teapot contains 32 patches, each represented by 16 points (the original data set contains 28 patches). You might wonder: "how is it possible to create a complex and smooth shape such as the teapot with such few points?". The main idea of the technique is that these 16 points do not define the vertices of polygons as with the polygon mesh we have studied in the previous section. Instead, they represent the control points of something like a grid or lattice that influence the shape of an underlying smooth surface. These points are like magnets that push or pull the underlying surface. Of course, the surface itself doesn't exist as such. To visualize it, we need to calculate it; we do so by combining these 16 control points weighted by some coefficients. Because the creation of the surface is based on equations, it falls under the category of **parametric surfaces**. The model used by Newell for the teapot (as many other types of parametric surface exist) is called a **Bézier surface** (or Bézier curve for curves). Pierre Bézier first described it in 1962. The principle of this technique is easier to understand with curves than surfaces. Its application to 3D surfaces, though, is straightforward.
 
 ## Bézier Curve
 
@@ -48,13 +48,13 @@ k_4(t) = t^3
 \end{array}
 $$
 
-When we need to evaluate a position on the curve for a particular \(t\), we need to replace \(t\) in these four equations to compute the four coefficients \(k_1\), \(k_2\), \(k_3\), \(k_4\) which are then multiplied to the four control points. That gives us a position in 3D space for a given value of \(t\). If we wish to create a polygon path made out of 10 segments, we compute 11 points by regularly incrementing \(t\) by 1/10. The following code example would calculate these 11 positions along the curve:
+When we need to evaluate a position on the curve for a particular \(t\), we need to replace \(t\) in these four equations to calculate the four coefficients \(k_1\), \(k_2\), \(k_3\), \(k_4\) which are then multiplied to the four control points. That gives us a position in 3D space for a given value of \(t\). For example, if we wish to create a polygon path made of 10 segments, we calculate 11 points by regularly incrementing \(t\) by 1/10. The following code example would calculate these 11 positions along the curve:
 
 ```
 int numSegments = 10;
 for (int i = 0; i &lt;= numSegments; ++i) {
 	float t = i / (float)numSegments;
-	// compute coefficients
+	// calculate the coefficients
 	float k1 = (1 - t) * (1 - t) * (1 - t);
 	float k2 = 3 * (1 - t) * (1 - t) * t;
 	float k3 = 3 * (1 - t) * t * t;
@@ -66,18 +66,18 @@ for (int i = 0; i &lt;= numSegments; ++i) {
 
 ![Figure 6: plot of the Bernstein polynomials for n = 3.](/images/bezier/curves.png?)
 
-As you can see, the principle is straightforward. All you need to create this curve are four control points which you move around to give the curve the shape you want. Each time you change one of these control points to visualize the new curve, the code above needs to be re-executed. Now that we understand the principle of this method, we will generalize and formalize it. We can rewrite the above equation more formally to compute P (equation 1). You can express it as a sum of control points multiplied by some coefficients:
+As you can see, the principle is straightforward. All you need to create this curve are four control points which you move around to give the curve the shape you want. Each time you change one of these control points to visualize the new curve, the code above needs to be re-executed. Now that we understand the principle of this method, we will generalize and formalize it. We can formally rewrite the above equation to calculate P (equation 1). You can express it as a sum of control points multiplied by some coefficients:
 
 $$P_{curve}(t)=\sum_{i = 0}^{n} b_{i,n}(t) P_i, \; t \in [0,1]$$
 
 The coefficients \(B_{i,n}\) are polynomials ("a polynomial is an expression of finite length constructed from variables and constants, using only the operations of addition, subtraction, multiplication, and non-negative integer exponents") known as the **Bernstein polynomials**. As you can see from this equation, there are n + 1 coefficients and control points involved in the sum (the sum starts with i = 0 and finishes with i = n, therefore if n = 3, we have i = 0, 1, 2, 3, that is four coefficients).
 
 <details>
-Bernstein polynomials can be computed with the following formula:
+Bernstein polynomials can be calculated with the following formula:
 
 $$B_{i,n}(t) = \left( \begin{array}{c}n \\ i \end{array} \right)t^i(1-t)^{n-i}, \; i=0,...,n.$$
 
-where the terms \(\left( \begin{array}{c}n \\ i \end{array} \right)\) are called binomial coefficients. They can easily be computed using factorials (the ! sign) with the following equation:
+where the terms \(\left( \begin{array}{c}n \\ i \end{array} \right)\) are called binomial coefficients. They can easily be obtained using factorials (the ! sign) with the following equation:
 
 $$\left(\begin{array}{c}n \\ i \end{array} \right) = {n! \over {i!(n - i)! }}$$
 
@@ -86,23 +86,23 @@ When n = 3, the binomial coefficients are 1, 3, 3, 1.
 The n+1 Bernstein polynomials of degree n (n=3 in our case) form a partition of unity in that they all sum to one.
 </details>
 
-It is possible to change the value of n (remember that the degree of a polynomial is the largest degree of any one term in this polynomial). Using the Bernstein polynomials, when n = 0, computing P is equivalent to a linear interpolation:
+It is possible to change the value of n (remember that the degree of a polynomial is the largest degree of any one term in this polynomial). Using the Bernstein polynomials, when n = 0, calculating P is equivalent to a linear interpolation:
 
 $$P = (1 - t) * P0 + t * P1$$
 
-When n = 2, we say that the Bézier curve is **quadratic** (\(t\) or \((1-t)\) is raised to the power of 2) and P can be computed with the following equation:
+When n = 2, we say that the Bézier curve is **quadratic** (\(t\) or \((1-t)\) is raised to the power of 2) and P can be calculated with the following equation:
 
 $$P = (1 - t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2$$
 
 When n = 3 (equation 2), we say that the Bézier curve is **cubic** (\(t\) or \((1-t)\) is raised to the power of 3).
 
 <details>
-The technique of weighting control points by some coefficients (which are the result of some equations) is widespread in CG. The Bézier curve is perfect for learning about this technique and understanding how it works. It also helps to appreciate how powerful it can be as a mathematical tool. In our particular case, we use it to model a curve in 3D space but imagine that the curve is a function; then, with just a few points and a few coefficients, we would have a compact way of encoding more complex (for example discrete) functions. This is actually how spherical harmonics work (or similar to the principle of DCTs which we explain in the 2D section). The same principle is also used for other types of curves or surfaces (such as NURBs).
+The technique of weighting control points by some coefficients (which are the result of some equations) is widespread in CG. The Bézier curve is perfect for learning about and understanding this technique. It also helps to appreciate how powerful it can be as a mathematical tool. In our particular case, we use it to model a curve in 3D space but imagine that the curve is a function; then, with just a few points and a few coefficients, we would have a compact way of encoding more complex (for example discrete) functions. This is actually how spherical harmonics work (or similar to the principle of DCTs which we explain in the 2D section). The same principle is used for other curves or surface types (such as NURBs).
 </details>
 
 ## Bézier Basis Matrix
 
-It is possible to develop the four Bézier basis functions used to compute the coefficients:
+It is possible to develop the four Bézier basis functions used to calculate the coefficients:
 
 $$
 \begin{split}
@@ -138,25 +138,25 @@ This notation is necessary because we can define different types of parametric b
 
 ![Figure 7: the De Casteljau alogirthm in action for t = 0.5.](/images/bezier/decasteljau.gif?)
 
-The De Casteljau algorithm is a numerically more stable way (compared to using the parametric form directly) of evaluating the position of a point on the curve for any given t (it only requires a series of linear interpolations). De Casteljau was one of the first mathematicians to study in the 1950s the possibility of using Bernstein polynomials to construct curves and surfaces (like Bézier, he worked for a car manufacturer and was interested in developing surfacing methods that could be used in CAD software). The principle of the algorithm relies on computing intermediate positions on each of the three segments defined by the four control points by linearly interpolating the control points for a given t. This process results in three points that can be connected to form two line segments. We repeat the linear interpolation on these two line segments, from which we get two new positions which, again, we can interpolate. The final point from this process lies on the curve at t (this process is illustrated in figure 7). Here is the pseudocode implementing this algorithm:
+The De Casteljau algorithm is a numerically more stable way (compared to using the parametric form directly) of evaluating the position of a point on the curve for any given t (it only requires a series of linear interpolations). De Casteljau was one of the first mathematicians to study in the 1950s the possibility of using Bernstein polynomials to construct curves and surfaces (like Bézier, he worked for a car manufacturer and was interested in developing surfacing methods that could be used in CAD software). The principle of the algorithm relies on calculating intermediate positions on each of the three segments defined by the four control points by linearly interpolating the control points for a given t. This process results in three points that can be connected to form two line segments. Next, we repeat the linear interpolation on these two line segments, from which we get two new positions which, again, we can interpolate. The final point from this process lies on the curve at t (this process is illustrated in figure 7). Here is the pseudocode implementing this algorithm:
 
 ```
 point decasteljau(point P1, point P2, point P3, point P4, float t)
 {
-    // compute first tree points along main segments P1-P2, P2-P3 and P3-P4
+    // calculate the first tree points along main segments P1-P2, P2-P3 and P3-P4
     point P12 = (1 - t) * P1 + t * P2;
     point P23 = (1 - t) * P2 + t * P3;
     point P34 = (1 - t) * P3 + t * P4;
-    // compute two points along segments P1P2-P2P3 and P2P3-P3P4
+    // calculate the two points along segments P1P2-P2P3 and P2P3-P3P4
     point P1223 = (1 - t) * P12 + t * P23;
     point P2334 = (1 - t) * P23 + t * P34;
 
-    // finally, compute P
+    // finally, get P
     return (1 - t) * P1223 + t * P2334; // P
 }
 ```
 
-Contrary to intuition, maybe, the De Casteljau method is more expensive than evaluating the Bernstein polynomials directly (6 -, 9 +, 22 * for the Bernstein polynomials vs. 6 -, 18 +, 36 * for the De Casteljau method), but as mentioned before, it has proven to be numerically more stable. The De Casteljau algorithm works on curves of arbitrary degree (n=2, n=3, ...) and can be implemented recursively. This is an important point, as initially, this algorithm was developed to recursively subdivide the Bézier curve until some criteria were met (usually to subdivide Bézier curves down to the pixel level and ensure maximum precision when it is displayed on the screen). This technique will be detailed in the lesson on the REYES algorithm (in the advanced section).
+Contrary to intuition, maybe, the De Casteljau method is more expensive than evaluating the Bernstein polynomials directly (6 -, 9 +, 22 * for the Bernstein polynomials vs. 6 -, 18 +, 36 * for the De Casteljau method), but as mentioned before, it has proven to be numerically more stable. Furthermore, the De Casteljau algorithm works on curves of arbitrary degree (n=2, n=3, ...) and can be implemented recursively. This is an important point, as initially, this algorithm was developed to recursively subdivide the Bézier curve until some criteria were met (usually to subdivide Bézier curves down to the pixel level and ensure maximum precision when it is displayed on the screen). This technique will be detailed in the lesson on the REYES algorithm (in the advanced section).
 
 ## Properties of Bézier Curves
 
@@ -168,7 +168,7 @@ Bézier curves have some interesting properties. We already know that the first 
 
 ![Figure 9: example of 1st order continuity between two Bézier curves. The control points P3 P4 from the first curve (red) and the points P1 P2 from the second curve (orange) are collinear.](/images/bezier/splitbeziercurves.png?)
 
-Several Bézier curves can be connected. A **0th order continuity** means that the curves are only joined (the last and first points of the first and second curves do join) but are not tangent. **1st order continuity** means that the points join and the curves are tangent at the intersection point. **2nd order continuity** is possible assuming more constraints on the alignments of the control points (but are more complex to implement particularly as the degree of the curve (the value of n) increases).
+Several Bézier curves can be connected. A **0th order continuity** means that the curves are only joined (the last and first points of the first and second curves do join) but are not tangent. **1st order continuity** means that the points join and the curves are tangent at the intersection point. **2nd order continuity** is possible assuming more constraints on the alignments of the control points (but are more complex to implement, particularly as the degree of the curve (the value of n) increases).
 
 ![Figure 10: splitting a Bézier curve using the De Casteljau method. P1, P12, P1223 and P form the control points of the first sub-curve (magenta), and P, P2334, P34, P4 form the control points of the second sub-curve (green).](/images/bezier/splitbezier.gif?)
 
@@ -177,21 +177,21 @@ If two Bézier curves can be connected with 1st order continuity (if the last tw
 ```
 point splitBezier(point P[4], float t, point P1[4], point P2[4])
 {
-    // compute first tree points along main segments P1-P2, P2-P3 and P3-P4
+    // calculate the first tree points along main segments P1-P2, P2-P3 and P3-P4
     point P12 = (1 - t) * P[0] + t * P[1];
     point P23 = (1 - t) * P[1] + t * P[2];
     point P34 = (1 - t) * P[2] + t * P[3];
-    // compute two points along segments P1P2-P2P3 and P2P3-P3P4
+    // calculate the two points along segments P1P2-P2P3 and P2P3-P3P4
     point P1223 = (1 - t) * P12 + t * P23;
     point P2334 = (1 - t) * P23 + t * P34;
-    // finally, compute P
+    // finally, get P
     point P = (1 - t) * P1223 + t * P2334;
     P1[0] = P[0], P1[1] = P12, P1[2] = P1223, P1[3] = P;
     P2[0] = P, P2[1] = P2334, P2[2] = P34, P3[3] = P4;
 }
 ```
 
-It can be beneficial to recursively split a curve until the resulting sub-curves are considered small enough. If we chose to split the curve at t = 0., five then we can optimize the De Casteljau algorithm slightly and write (substituting 0.5 for t in the previous code and arranging the terms):
+It can be beneficial to recursively split a curve until the resulting sub-curves are considered small enough. For example, if we chose to split the curve at t = 0., five then we can optimize the De Casteljau algorithm slightly and write (substituting 0.5 for t in the previous code and arranging the terms):
 
 ```
 point splitBezierOptimize(point P[4], point P1[4], point P2[4])

@@ -62,6 +62,7 @@ $$
 \end{align}
 $$
 
+TODO Make the start of this equation clearer.
 We can now solve for \(C\):
 
 $$

@@ -1,4 +1,4 @@
-![Figure 1: a face normal can be computed from the cross product between two edges of a face.](/images/upload/bezier/bez-facenormal.png?)
+![Figure 1: a face normal can be computed from the cross product between two edges of a face.](/images/bezier/bez-facenormal.png?)
 
 Now that we studied a couple of techniques to create a Bézier patch, a problem remains. We need to shade this patch. Generating the position of the points is something we can already do for shading, but we also need a normal. How can we generate a normal at the position of each vertex of the grid? We can easily generate a face normal using a technique similar to the one we have used in the `getSurfaceProperties` method of the `TriangleMesh` class. We can compute the cross-product between two edges making up a face. But this technique only produces a face normal.
 
@@ -10,7 +10,7 @@ const Vec3f &v2 = P[k+3];
 faceNormal = (v1 - v0).crossProduct(v2 - v0); 
 ```
 
-![Figure 2: a normal at any point on the patch can be computed from a cross product between the tangent on the surface at that point along the \(u\) and the \(v\) direction.](/images/upload/bezier/bez-normal.png?)
+![Figure 2: a normal at any point on the patch can be computed from a cross product between the tangent on the surface at that point along the \(u\) and the \(v\) direction.](/images/bezier/bez-normal.png?)
 
 What we want is a vertex normal, a normal at each point making up the grid that is perpendicular to the Bézier surface. Hopefully, because the grid is computed from equations, we can also use maths to calculate an accurate normal at any point on the surface of the Bézier patch. What we want to do is compute two tangents at the point of interest (whose coordinates on the patch are specified in terms of \(u\) and \(v\)), one along the \(u\) direction and one along the \(v\) direction. By taking the cross-product of these two tangents, we get the normal we are looking for. The question now is, how do we compute these tangents? As suggested, we can express the problem in mathematical terms. In mathematics, the tangent of a curve calculated from a function can be defined as the function derivative with respect to a parameter, for example:
 
@@ -96,7 +96,7 @@ $$
 \end{array}
 $$
 
-![Figure 3: a shaded Utah teapot.](/images/upload/bezier/bez-shading.png?)
+![Figure 3: a shaded Utah teapot.](/images/bezier/bez-shading.png?)
 
 Et voila! All there is left to do is compute these two equations to obtain the two tangents at the parametric coordinates \((u,v)\) and then compute the cross-product between these two tangents to get the normal at this point. The implementation of this technique is shown below. We have two functions, `dUBezier` to compute the tangent along the \(u\) direction and `dVBezier` to compute the other tangent along the \(v\) direction. The result is surprising. As you can see in the adjacent image, the result is not only very smooth but also that the transition at the patches boundaries is invisible. Mathematics once again works remarkably well and gives us a perfect result, including at the edges or corners of the patches.
 

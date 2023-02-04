@@ -1,4 +1,4 @@
-@Mathematics for Computer Graphics:Most common mathematical tools/techniques used in computer graphics/computer vision. Go through the lessons of the basic section first, and then eventually start reading these lessons as you go along.
+@Mathematics for Computer Graphics&Most common mathematical tools/techniques used in computer graphics/computer vision. Go through the lessons of the basic section first, and then eventually start reading these lessons as you go along.
 mathematics-physics-for-computer-graphics/geometry/*
 mathematics-physics-for-computer-graphics/matrix-inverse/*
 mathematics-physics-for-computer-graphics/interpolation/*
@@ -7,8 +7,9 @@ mathematics-physics-for-computer-graphics/mathematics-of-shading/*
 mathematics-physics-for-computer-graphics/monte-carlo-methods-mathematical-foundations/*
 mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/*
 mathematics-physics-for-computer-graphics/quaternion/
+mathematics-physics-for-computer-graphics/fourier-transform/*
 
-@3D Rendering for Beginners:Best read in chronological order (top to bottom).
+@3D Rendering for Beginners&Best read in chronological order (top to bottom).
 3d-basic-rendering/introduction-to-ray-tracing/*
 3d-basic-rendering/get-started/*
 3d-basic-rendering/rendering-3d-scene-overview/*
@@ -29,7 +30,24 @@ mathematics-physics-for-computer-graphics/quaternion/
 3d-basic-rendering/introduction-acceleration-structure/*
 3d-basic-rendering/volume-rendering-for-developers/*
 
-@Accelerating 3D Rendering:Coming soon.
+@3D Rendering for Beginners: Review&Before moving on to the next section (intermediate 3D rendering), let's review the essential concepts that we have learned so far. We will do so through a series of exercises and challenges for you to do (answers/solutions provided). Check the first lesson to read more...
 
-@Geometry:Methods to define shapes in computer graphics.
+3d-basic-rendering-review/your-mission/*
+3d-basic-rendering-review/3d-projections-review/*
+3d-basic-rendering-review/ray-tracing-review/*
+
+@Accelerating 3D Rendering&Coming soon.
+
+@Geometry&Methods to define shapes in computer graphics.
 geometry/bezier-curve-rendering-utah-teapot/*
+
+@Digital Imaging&Saving and reading images to/from disk, image file format, color spaces, color management, and simple image processing. 
+digital-imaging/colors/*
+digital-imaging/digital-images/*
+digital-imaging/simple-image-manipulations/*
+
+@Procedural Generation of Virtual Worlds&Pocedural simulation of natural phenomena.
+procedural-generation-virtual-worlds/procedural-patterns-noise-part-1/*
+procedural-generation-virtual-worlds/perlin-noise-part-2/*
+procedural-generation-virtual-worlds/simulating-sky/*
+procedural-generation-virtual-worlds/simulating-ocean-waves/

@@ -40,12 +40,7 @@ This is almost the complete formula to compute the color of a point on a diffuse
 
 As mentioned in the first chapter, diffuse surfaces have a unique property which is that they reflect light impinging on their surface in equal quantities in every direction above the surface at the point of incidence. Imagine a light beam striking the surface of an object in one point and light energy being redistributed over that point in a hemisphere of directions expanding from the point of incidence outward, as shown in figure 3\. From a practical point of view, this means that the energy of the light beam which we know is attenuated by the cosine of the angle between the surface normal and the light direction is redistributed across the surface of a hemisphere. We can look at this problem the other way around and say that if we were to collect all the energy distributed across the surface of this hemisphere, it should be equal to the incident light energy minus of course the amount of light that was absorbed by the surface. There is as much light redistributed as light incident on the surface minus the amount of light absorbed by the surface. Mathematically, collecting the light energy across the surface of the hemisphere can be written using an integral:
 
-$$
-\begin{array}{l}
-\text{Diffuse Surface Color} & \propto  & \text{Incident Light Energy} * \cos\theta \\
-& \propto & \text{Incident Light Energy} * N.L.
-\end{array}
-$$
+$$\text{Amount of Reflected Light(P)} = \color{green}{\int_\Omega} \color{red}{\rho_d * \text{Light Energy} * \cos\theta}\color{green}{\;d\omega}.$$
 
 The integral symbol only means that we are interested in summing up in a way all the light energy that is spread across the surface of the hemisphere (imagine that you are counting the number of photons distributed over the surface of that hemisphere). The concept of the hemisphere in this equation is represented by the term \(\Omega\). If you read this equation you could say "collect (the \(\int\) term) the light energy (aka the number of photons for example) of an incident light beam reflected by the surface at \(P\), over the hemisphere (defined here by the term \(\Omega\)) oriented about the surface normal \(N\) at the point of incidence". We know that the energy reflected is itself equal to the albedo of the surface multiplied by the amount of incident light energy multiplied by the cosine of the angle between the surface normal and the light direction. So if we put these two concepts together we get the integral term on the left (the green part in the equation) and what we try to collect which is the term in red on the right of the integral.
 
