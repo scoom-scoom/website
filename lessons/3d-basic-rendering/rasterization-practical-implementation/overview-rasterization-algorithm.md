@@ -209,6 +209,4 @@ This is only a very high-level description of the algorithm (Figure 6), but this
 
 ![Figure 6: schematic view of the rasterization algorithm.](/images/rasterization/rasterization-schema.png?)
 
-In the next chapter, we will see how coordinates are converted from camera to raster space. The method is identical to the one we studied and presented in the previous lesson, however, we will present a few more tricks along the way. In chapter three, we will learn how to rasterize triangles. In chapter four, we will study in detail how the z-buffer algorithm works. As usual, we will conclude this lesson with a practical example.
-
-PROOFREADER NOTE: There is no practical example given at the end of this lesson (this markdown document), despite being promised in the previous paragraph.
+In the next chapter, we will see how coordinates are converted from camera to raster space. The method is identical to the one we studied and presented in the previous lesson, however, we will present a few more tricks along the way. In chapter three, we will learn how to rasterize triangles. In chapter four, we will study in detail how the z-buffer algorithm works. As usual, we will conclude this lesson with a practical example (see the last chapter called "Source Code").

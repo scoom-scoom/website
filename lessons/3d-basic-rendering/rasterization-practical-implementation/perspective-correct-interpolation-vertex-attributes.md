@@ -52,14 +52,16 @@ $$
 \begin{align}
 \dfrac{\dfrac{1}{\dfrac{1}{Z_0}(1-q)+\dfrac{1}{Z_1}q} - Z_0}{(Z_1 - Z_0)} & = \dfrac{\dfrac{Z_0Z_1}{Z_1(1-q)+Z_0q} - Z_0}{(Z_1 - Z_0)}\\
 & = \dfrac{\dfrac{Z_0Z_1 - Z_0(Z_1(1-q) + Z_0q)}{Z_1(1-q) + Z_0q}}{Z_1 - Z_0}\\
+& = \dfrac{\dfrac{Z_0Z_1 - Z_0Z_1 + Z_0Z_1q - Z_0^2q}{Z_1(1-q) + Z_0q}}{Z_1 - Z_0}\\
 & = \dfrac{\dfrac{Z_0Z_1q - Z_0^2q}{Z_1(1-q) + Z_0q}}{Z_1 - Z_0}\\
 & = \dfrac{\dfrac{Z_0q(Z_1 - Z_0)}{Z_1(1-q) + Z_0q}}{Z_1 - Z_0}\\
+& = \dfrac{Z_0q(Z_1 - Z_0)}{Z_1(1-q) + Z_0q} * \dfrac{1}{{Z_1 - Z_0}}\\
 & = \dfrac{Z_0q}{Z_1(1-q) + Z_0q}\\
+& = \dfrac{Z_0q}{Z_1 - Z_1q + Z_0q}\\
 & = \dfrac{Z_0q}{q(Z_0 - Z_1) + Z_1}.\\
 \end{align}
 $$
 
-TODO Make the start of this equation clearer.
 We can now solve for \(C\):
 
 $$
@@ -68,7 +70,9 @@ $$
 C  = \dfrac{Z_0q}{q(Z_0 - Z_1) + Z_1}(C_1 - C_0) + C_0,\\
 C  = \dfrac{Z_0q(C_1 - C_0) + C_0(q(Z_0 - Z_1) + Z_1)}{q(Z_0 - Z_1) + Z_1},\\
 C  = \dfrac{Z_0qC_1 - Z_0qC_0 + C_0qZ_0 - C_0qZ_1 + C_0Z_1}{q(Z_0 - Z_1) + Z_1},\\
+C  = \dfrac{Z_0qC_1 - Z_0qC_0 + Z_0qC_0 - C_0qZ_1 + C_0Z_1}{q(Z_0 - Z_1) + Z_1},\\
 C  = \dfrac{Z_0qC_1 - C_0qZ_1 + C_0Z_1}{q(Z_0 - Z_1) + Z_1},\\
+C  = \dfrac{C_1qZ_0 + C_0Z_1 - C_0qZ_1}{q(Z_0 - Z_1) + Z_1},\\
 C  = \dfrac{C_0Z_1(1-q) + C_1Z_0q}{Z_1(1 - q) + Z_0q}.\\
 \end{array}
 $$

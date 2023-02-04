@@ -178,7 +178,7 @@ The object that is being rendered by the program is stored in an include file. T
   ```
   
 
-  Note that, for this technique to work, we also need to find the coordinates of P. The position of the point on the triangle that the pixel overlaps can be computed like any vertex attribute. We need to take the vertices in camera space, divide them by their respective z-coordinates, interpolate them with the barycentric coordinates, and multiply the result by the sample depth (which is also, coincidentally, P's (TODO: Check that this "P's" word makes sense) z-coordinate):
+  Note that, for this technique to work, we also need to find the coordinates of P. The position of the point on the triangle that the pixel overlaps can be computed like any vertex attribute. We need to take the vertices in camera space, divide them by their respective z-coordinates, interpolate them with the barycentric coordinates, and multiply the result by the sample depth (which is also, coincidentally, P's z-coordinate):
 
   ```
   // Get triangle vertices in camera space.

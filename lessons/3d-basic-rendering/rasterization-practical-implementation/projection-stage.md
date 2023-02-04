@@ -106,9 +106,7 @@ Where x here is the x-coordinate of a 3D point in screen space (remember that fr
 
 $$0 < x - l < r - l$$
 
-By dividing all terms by (r-l), we get:
-
-TODO add note about the fact that r > l, so you are dividing by a non-negative number.
+Because $(r - l) > 0$, we can divide all sides of the inequality by $(r - l)$ without having to change the inequality signs. We then get:
 
 $$
 \begin{array}{l}

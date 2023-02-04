@@ -73,7 +73,7 @@ Which is the same as the edge function we have defined above. In other words, th
 
 ![Figure 5: the area of the parallelogram is the absolute value of the determinant of the matrix formed by the vectors A and B (or the magnitude of the cross-product of the two vectors A and B, assuming the right-hand rule convention).](/images/rasterization/cross-product.png?)
 
-PROOFREADER NOTE: Change the Figure to have the labels "B" and "theta", not "B0, B1", and "theta0, theata1". Having 0 and 1 in the labels makes the explanations confusing.
+PROOFREADER NOTE: Would it be better to change the Figure to have the labels "B" and "theta", not "B0, B1", and "theta0, theata1". I find having 0 and 1 in the labels makes the explanations confusing.
 
 ![Figure 6: the area of the parallelogram is the absolute value of the determinant of the matrix formed by the vectors A and B. If the angle \(\theta\) is lower than \(\pi\), then the "signed" area is positive. If the angle \(\theta\) is greater than \(\pi\), then the "signed" area is negative. The angle is computed with respect to the Cartesian coordinates defined by the vectors A and D. They can be seen to separate the plane in two halves.](/images/rasterization/cross-product1.png?)
 
